@@ -1,0 +1,523 @@
+﻿.486
+porta equ 3c0h
+portb equ 3c4h
+portc equ 3c8h
+ctrl equ  3cch
+code segment use16
+assume cs:code
+;接线 OUT0 - C口高四    C0-C3-->P0-P3
+;	GATE0 - 5V     PA0-PA8-->DS0-DS8  PA0-PA3-->Q0-Q3  
+ ;   PB0-PB7  A-DP
+        org 2000h
+        jmp start
+disptab db 3fh,06h,5bh,4fh,66h,6dh,7dh,07h,7fh,6fh;0-9字形表
+kettab  db  0eeh,0edh,0ebh,0e7h,0deh,0ddh
+        db  0dbh,0d7h,0beh,0bdh,0bbh,0b7h  ;键特征值
+        db  07eh,07dh,07bh,077h
+temp0  dw 0
+led0  dw 0
+led1  dw 0
+led2  dw 0
+led3  dw 0
+led4  dw 0
+led5  dw 0
+delay_time dw 0200h
+delay_time_short dw  01h        ;delay函数的延时时间
+;功能：开机显示学号
+;    按下1启动、2暂停、3继续、4复位、5kill功能 
+;8254配置方式2   地址300H
+;gate0 接A口最高位
+
+;8255配置为 A 输出 B 输出 C低四位输入（键盘）&高四位输入（定时器）  地址：3c0h
+;显示学号时，A 位选  B段选
+;键盘列直接全接0
+start:  mov si,0
+        mov dx,ctrl
+        mov al,89h
+        out dx,al
+        ;上面用于初始化8255以及延时器
+        ;下面初始化8254
+        MOV    DX,30CH  ;写通道0
+        MOV    AL,00111100b
+        OUT    DX,AL
+        MOV    DX,300H
+        MOV    AX,800
+        OUT    DX,AL
+        MOV    AL,AH  
+        OUT    DX,AL    
+         ;完成计数器一的初始化   
+        mov dx,portb
+        mov al,00h
+        out dx,al
+
+ id_show:       call    show_id
+ keyin:       call    test_key
+      cmp  bh,00h
+		jz  id_show    
+      cmp bh,01h              ;按下1 (A口最高位送1，开始计时)
+        jz  oneone
+        jmp  id_show ;按下其他键继续显示学号
+oneone:        Call f_one
+                 jmp  yht
+rolling:
+yht:    mov dx,portc
+        in al,dx
+        or al,00001111b
+        cmp al,00001111b
+        jnz   downs ;     高四位为零说明说明达到了一次计数值
+        add  si,1    ;每次上升沿si加1
+        inc  temp0  
+downs: 
+        inc  led0
+        cmp  temp0,10
+        jnz   unresetled0
+        mov  temp0,0
+        inc  led1  
+unresetled0:
+        cmp led1,10
+        jnz   unresetled1
+        mov  led1,0
+        inc  led2 
+unresetled1:
+        cmp led2,6
+        jnz   unresetled2
+        mov  led2,0
+        inc  led3
+unresetled2:
+        cmp led3,10
+        jnz  unresetled3
+        mov  led3,0
+        inc  led4  
+unresetled3:
+        cmp led4,10
+        jnz   unresetled4
+        mov  led4,0
+        inc  led5  
+unresetled4:
+        cmp led5,10
+        jnz   unresetled5 ; 循环结束
+        mov  led5,0
+        cmp  led0,10
+        jnz  unresetled5
+        mov  led0,0
+unresetled5:;至此每次循环更新完成，调用显示函数
+           
+        call  show_clock
+        call  test_key
+        cmp   bh,00h
+        jz    zz
+        cmp bh,02h ;按下2
+        jz  twotwo
+        cmp bh,03h ;按下3 
+        jz  threethree
+        cmp bh,04h ;按下4
+       jz  fourfour
+        cmp bh,05h ;按下5
+        jz  fivefive
+        jmp yht
+ 
+twotwo:            call f_two
+			jmp  yht
+threethree:        
+                 jmp  yht
+fourfour:        call f_four
+                 jmp  yht
+fivefive:        call f_five
+                 jmp  yht
+zz:       jmp yht
+
+;下为每次主循环调用结束后，返回按键读取处
+;/***************
+;主程序至此结束
+;下面为封装好的函数
+;*/
+;下面为对应功能的函数   
+
+;@@func f_one
+;@@param none
+;@@brief 结束显示学号，进入主循环
+;@@return none
+f_one   proc    near
+        mov  dx,porta
+        mov  al,0ffh
+        out  dx,al
+        ret
+f_one   endp
+;@@func f_two
+;@@param none
+;@@brief 暂停函数，暂停并展示当前计数值
+;@@return none
+f_two  proc    near
+yy:	call  show_clock_two
+	call  test_key
+	cmp   bh,03h
+	jz    goback
+	cmp	bh,04h
+	jz	iuui
+	jmp   yy
+	
+iuui:
+	call f_four
+	jmp yy	
+goback:	
+        ret
+f_two   endp
+;@@func f_three
+;@@param none
+;@@brief 返回函数，用于从暂停状态返回
+;@@return none
+f_three  proc    near
+        mov  dx,porta
+        mov  al,0ffh
+        out  dx,al
+        ret
+f_three   endp
+
+;@@func f_four
+;@@param none
+;@@brief 清零函数，把LED各位清零
+;@@return none
+f_four  proc    near
+        mov  temp0,0
+        mov  led1,0
+        mov  led2,0
+        mov  led3,0
+        mov  led4,0
+        mov  led5,0
+        ret
+f_four   endp
+
+;@@func  f_five
+;@@param none
+;@@brief 结束函数，所有led灭掉并结束循环
+;@@return none
+f_five  proc    near
+        mov  dx,porta
+        mov  al,0ffh
+        out  dx,al
+	call delay
+        mov  dx,portb
+        mov  al,0ffh
+        out  dx,al
+        call delay
+
+        mov  dx,portb
+        mov  al,00h
+        out  dx,al
+        call delay
+
+        mov  dx,portb
+        mov  al,0ffh
+        out  dx,al
+        call delay
+
+        mov  dx,portb
+        mov  al,00h
+        out  dx,al
+        call delay
+        mov  dx,portb
+        mov  al,0ffh
+        out  dx,al
+        call delay
+
+        mov  dx,portb
+        mov  al,00h
+        out  dx,al
+        call delay
+        
+wt:     nop
+        jmp wt  
+        ret
+f_five   endp
+
+;@@func delay
+;@@param delay_time 循环次数
+;@@brief 延时函数
+;@@return none
+delay   proc    near
+        push    cx
+        mov     cx,delay_time
+dlp:    loop    dlp
+	pop cx
+        ret
+delay  endp
+
+delay_short   proc    near
+        push    cx
+        mov     cx,delay_time_short
+dlp_short:    loop    dlp
+	pop cx
+        ret
+delay_short  endp
+;@@func show_id
+;@@param   none
+;@@brief 利用8255 A B口显示学号
+show_id  proc    near
+
+        MOV     DX,porta
+        MOV     AL,10000000B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,5BH 
+        OUT     DX,AL
+        call    delay
+
+        MOV     DX,porta
+        MOV     AL,01000000B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,3FH 
+        OUT     DX,AL
+        call    delay
+
+        MOV     DX,porta
+        MOV     AL,00100000B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,5BH 
+        OUT     DX,AL
+        call    delay
+
+        MOV     DX,porta
+        MOV     AL,00010000B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,5BH 
+        OUT     DX,AL
+        call    delay
+
+        MOV     DX,porta
+        MOV     AL,00001000B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,06H
+        OUT     DX,AL
+        call    delay
+
+
+
+        MOV     DX,porta
+        MOV     AL,00000100B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,7DH
+        OUT     DX,AL
+        call    delay
+
+        MOV     DX,porta
+        MOV     AL,00000010B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,7FH
+        OUT     DX,AL
+        call    delay
+
+        MOV     DX,porta
+        MOV     AL,00000001B
+        OUT     DX,AL
+        MOV     DX,portb 
+        MOV     AL,6FH
+        OUT     DX,AL
+        call    delay
+            ret
+show_id  endp
+;@@func test_key
+;@@param none
+;@@brief 测试键盘输入
+;@@return bh->按下的按键值（0-f）  没有按键按下时返回0
+test_key proc    near
+t2:      mov al,00h
+        mov dx,porta
+        out dx,al
+        mov dx,portc
+loop1:  in  al,dx
+        and al,0fh
+        cmp al,0fh
+        je  nokey
+        mov bh,al
+        call    delay_short
+        mov al,0feh
+        mov bl,al
+loop2:   mov dx,porta
+        out dx,al
+        mov dx,portc
+        in  al,dx
+        and al,0fh
+        cmp al,0fh
+        jne loop3
+        rol bl,1
+        mov al,bl   
+        jmp loop2
+loop3:  mov dx,porta
+        mov al,3fh
+        out dx,al
+        mov cl,4
+        sal bl,cl
+        or  bl,bh
+        call    delay
+        lea si,kettab
+       mov  bh,0
+loop4:  mov al,[si]
+        cmp al,bl
+        je  loop5
+        inc bh
+        inc si
+        jmp loop4
+        
+loop5:   
+         ret
+
+nokey:   mov bh,0
+        ret
+test_key endp
+;@@func show_clock
+;@@param led0-led5  各个灯对应的数字
+;@@brief 显示时钟
+;@@return none
+show_clock proc near
+        mov  dx,porta
+        mov  al,00000001b
+        out  dx,al
+        mov  dx,portb
+        lea  di,disptab
+        add  di,temp0
+        mov  al,[di]
+        out  dx,al
+
+        mov  dx,porta
+        mov  al,00000010b
+        out  dx,al
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led1
+        mov  al,[di]
+        out  dx,al
+       ;call delay_short
+
+        mov  dx,porta
+        mov  al,00000100b
+        out  dx,al
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led2
+        mov  al,[di]
+        out  dx,al
+         ;call delay_short
+
+        mov  dx,porta
+        mov  al,00001000b
+        out  dx,al
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led3
+        mov  al,[di]
+        out  dx,al
+       ;call delay_short
+        mov  dx,porta
+        mov  al,00010000b
+        out  dx,al
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led4
+        mov  al,[di]
+        out  dx,al
+       ;call delay_short
+        mov  dx,porta
+        mov  al,00100000b
+        out  dx,al
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led5
+        mov  al,[di]
+        out  dx,al
+       ;call delay_short
+        ret
+show_clock endp
+
+;@@func show_clock
+;@@param led0-led5  各个灯对应的数字
+;@@brief 显示时钟 仅用于暂停时
+;@@return none
+show_clock_two proc near
+	call  delay
+		mov  dx,portb
+        lea  di,disptab
+        add  di,temp0
+        add  di,1
+        mov  al,[di]
+        out  dx,al
+        mov  dx,porta
+        mov  al,0000000001b
+        out  dx,al
+        call delay
+	
+	    mov  dx,portb
+        lea  di,disptab
+        add  di,temp0
+        mov  al,[di]
+        out  dx,al
+        mov  dx,porta
+        mov  al,0000000010b
+        out  dx,al
+        call delay
+
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led1
+        mov  al,[di]
+        or   al,80h
+        out  dx,al
+        mov  dx,porta
+        mov  al,0000000100b
+        out  dx,al
+        call delay
+
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led2
+        mov  al,[di]
+        out  dx,al
+        mov  dx,porta
+        mov  al,0000001000b
+        out  dx,al
+        call delay
+        
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led3
+        mov  al,[di]
+        or   al,80h
+        out  dx,al
+        mov  dx,porta
+        mov  al,0000010000b
+        out  dx,al
+
+    	call delay 
+    
+         mov  dx,portb
+        lea  di,disptab
+        add  di,led4
+        mov  al,[di]
+        out  dx,al
+        mov  dx,porta
+        mov  al,0000100000b
+        out  dx,al
+	call delay
+
+        mov  dx,portb
+        lea  di,disptab
+        add  di,led5
+        mov  al,[di]
+        out  dx,al
+        mov  dx,porta
+        mov  al,0001000000b
+        out  dx,al
+        call delay
+
+        ret
+show_clock_two endp
+
+
+code    ends
+end start
+
