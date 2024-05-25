@@ -1,4 +1,4 @@
-﻿.486
+.486
 porta equ 3c0h
 portb equ 3c4h
 portc equ 3c8h
@@ -68,7 +68,6 @@ yht:    mov dx,portc
         add  si,1    ;每次上升沿si加1
         inc  temp0  
 downs: 
-        inc  led0
         cmp  temp0,10
         jnz   unresetled0
         mov  temp0,0
@@ -97,9 +96,7 @@ unresetled4:
         cmp led5,10
         jnz   unresetled5 ; 循环结束
         mov  led5,0
-        cmp  led0,10
         jnz  unresetled5
-        mov  led0,0
 unresetled5:;至此每次循环更新完成，调用显示函数
            
         call  show_clock
@@ -228,6 +225,9 @@ f_five  proc    near
 wt:     nop
         jmp wt  
         ret
+
+wt :   mov ah,20h
+        int 21h
 f_five   endp
 
 ;@@func delay
