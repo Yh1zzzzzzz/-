@@ -109,10 +109,10 @@ void HC595_Send_Multi_Byte(unsigned char *data, unsigned short int len)
  void LAB_595_display(void){
 	 			char cmd[2];
 		for(int i = 0; i < 8; i++){
-			cmd[0] = DIG_CS_CA[0];
-			cmd[1] = DIG_CS_CA[1];
+			cmd[0] = DIG_CS_CA[i];
+			cmd[1] = digitMapCC[count[i]];
 			HC595_Send_Multi_Byte(cmd, 2);
-		 HAL_Delay(5);
+		 //HAL_Delay(1);
 		
 		}
  

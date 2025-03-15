@@ -65,16 +65,16 @@ void Write_CQU(void){
 }
 void Write_automation(void){
 //中文位置
-    LCD_Display_Words_SW(2,0,"自动化学院");
+    LCD_Display_Words_SW(1,0,"自动化学院");
 }
 
 void Write_xuehao(void){
 //中文位置打印
-    LCD_Display_Words_SW(3,0,"二零二二一六八九");
+    LCD_Display_Words_SW(2,0,"二零二二一六八九");
 }
 void Write_xuehao_eng(void){
 //英语位置打印学号
-    LCD_Display_Words_SW(4,2,"2021689");
+    LCD_Display_Words_SW(3,2,"2021689");
 }
 void LCD_Display_SW(void){
     Write_CQU();

@@ -28,7 +28,7 @@
 "lab1\stm32f1xx_hal_tim.o"
 "lab1\stm32f1xx_hal_tim_ex.o"
 "lab1\system_stm32f1xx.o"
---strict --scatter "lab1\lab1.sct"
+--library_type=microlib --strict --scatter "lab1\lab1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "lab1.map" -o lab1\lab1.axf

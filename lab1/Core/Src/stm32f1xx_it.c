@@ -210,8 +210,7 @@ void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
 
-  LED_status = (LED_status == 1) ? 0 : 1;
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, LED_status);
+  
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
@@ -225,12 +224,7 @@ void TIM2_IRQHandler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
-  time += 0.1;
-  if(time >= 1000){
-    time = 0;
-  }
-	interrupt_cnt++;
-  time595 += 0.1;
+  
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
@@ -245,22 +239,7 @@ void TIM5_IRQHandler(void)
 {
 	
   /* USER CODE BEGIN TIM5_IRQn 0 */
-	count[0]++;
- for(int i =0; i < 8; i++){
-	if(count[i] > 9){
-		count[i] = 0;
-		count[i + 1]++;
-	}
-	// over flow
-	if(count[7] > 9){
-	
-		for(int k= 0; k < 8; k++){
-		
-			count[k] = 0;
-		}
-	}
- 
- }
+
   /* USER CODE END TIM5_IRQn 0 */
   HAL_TIM_IRQHandler(&htim5);
   /* USER CODE BEGIN TIM5_IRQn 1 */

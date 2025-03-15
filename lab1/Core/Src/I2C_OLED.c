@@ -131,7 +131,8 @@ void OLED_Init(void)
 	WriteCmd(0x8d); //设置DC-DC使能
 	WriteCmd(0x14); //
 	WriteCmd(0xaf); //--turn on oled panel
-	OLED_CLS();
+	
+
 }
 
 /**
@@ -452,9 +453,9 @@ void OLED_ShowBMP(signed short int x0,signed short int y0,signed short int L,sig
 void LAB_SHOW(void){
 	unsigned char time[10];
 	snprintf(time, sizeof(time), "%d", interrupt_cnt);
-	  OLED_ShowChinese(0,16,"杨");
-	OLED_ShowChinese(0,32,"昊");
-	  OLED_ShowChinese(0,48,"天");
+	  //OLED_ShowChinese(0,16,"杨");
+	//OLED_ShowChinese(0,32,"昊");
+	  //OLED_ShowChinese(0,48,"天");
 	  OLED_ShowStr(16,0,"20221689",1);
 	  OLED_ShowStr(32,0,time,1);
 }

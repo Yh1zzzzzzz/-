@@ -1,5 +1,6 @@
 #include "spi_lcd.h"
 #include <stdio.h>
+//#include "stdio.h"
 float time = .0f;
 unsigned char LCD_addr[4][8]={
 	{0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87},  		//第一行
@@ -52,7 +53,8 @@ void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
 }
 void timer(void){
     unsigned char* str;
-    snprintf(str, 6, "%.1f", time);
-    LCD_Display_Words(0, 2, "时间计数器");
+    snprintf(str, 32, "%.1f", time);
+	LCD_Display_Words(1,0,"王");
+    LCD_Display_Words(0, 2, "timer");
     LCD_Display_Words(2, 4, str);
 }

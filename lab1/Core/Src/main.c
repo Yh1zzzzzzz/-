@@ -40,7 +40,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define SW_SPI
+#define HW_SPI
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -101,9 +101,11 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+	HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_Base_Start_IT(&htim3);
+	HAL_TIM_Base_Start_IT(&htim5);
+
 	
-	//
-	//
 	//初始化外设,屏幕等
 	OLED_Init();
 	//
@@ -114,7 +116,8 @@ int main(void)
 	#ifdef HW_SPI
 			LCE_init();
 	#endif
-	
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,15 +125,16 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+//		LAB_SHOW();
 		LAB_595_display();
 		#ifdef SW_SPI
-		LCD_Display_SW();
+			LCD_Display_SW();
 		#endif
 		
 		#ifdef HW_SPI
 			timer();
 		#endif
-		LAB_595_display();
+		//LAB_595_display();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -176,7 +180,37 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if(htim == &htim2){
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	}
+	if(htim == &htim3){
+		time += 0.1;
+  if(time >= 1000){
+    time = 0;
+  }
+	interrupt_cnt++;
+  time595 += 0.1;
+	}
+	if(htim == &htim5){
+		count[0]++;
+ for(int i =0; i < 8; i++){
+	if(count[i] > 9){
+		count[i] = 0;
+		count[i + 1]++;
+	}
+	// over flow
+	if(count[7] > 9){
+	
+		for(int k= 0; k < 8; k++){
+		
+			count[k] = 0;
+		}
+	}
+ 
+ }
+	}
+}
 /* USER CODE END 4 */
 
 /**
@@ -193,6 +227,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
 
 #ifdef  USE_FULL_ASSERT
 /**

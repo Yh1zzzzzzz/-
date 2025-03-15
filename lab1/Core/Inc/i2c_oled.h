@@ -48,7 +48,7 @@ void OLED_DisplayMode(unsigned char mode);	//屏幕内容取反显示
 void OLED_IntensityControl(unsigned char intensity);//屏幕亮度调节
 void OLED_Shift(unsigned char shift_num);	//全屏内容偏移指定距离
 void OLED_HorizontalShift(unsigned char start_page,unsigned char end_page,unsigned char direction);	//屏幕内容水平方向滚动播放
-
+void LAB_SHOW(void);
 #endif  /*OLED_IIC_CONFIG_H*/
 
 /**
