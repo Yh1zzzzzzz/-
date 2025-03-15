@@ -1,0 +1,5 @@
+{
+    "clangd.arguments": [
+        "--compile-commands-dir=d:\\Study\\CQU_Study\\Computer_Control\\lab1\\MDK-ARM\\out\\lab1\\lab1"
+    ]
+}

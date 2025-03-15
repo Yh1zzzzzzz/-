@@ -324,7 +324,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>3</wLevel>
+            <wLevel>1</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
@@ -439,6 +439,46 @@
               <FileName>LED.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\Src\LED.h</FilePath>
+            </File>
+            <File>
+              <FileName>SoftWare_LCD_Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\SoftWare_LCD_Driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>sw_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\sw_lcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>SPI_LCD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\SPI_LCD.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\spi_lcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>I2C_OLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\I2C_OLED.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_oled.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\i2c_oled.h</FilePath>
+            </File>
+            <File>
+              <FileName>595Driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\595Driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>595driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\595driver.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -26,6 +26,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "LED.h"
+#include "sw_lcd.h"
+#include "spi_lcd.h"
+#include "i2c_oled.h"
+#include "595driver.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,7 +40,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define SW_SPI
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -69,6 +74,7 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
+  LED_status = 1;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -95,7 +101,20 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
+	
+	//
+	//
+	//初始化外设,屏幕等
+	OLED_Init();
+	//
+	
+	#ifdef SW_SPI
+			LCD_Init();
+	#endif
+	#ifdef HW_SPI
+			LCE_init();
+	#endif
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,7 +122,15 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+		LAB_595_display();
+		#ifdef SW_SPI
+		LCD_Display_SW();
+		#endif
+		
+		#ifdef HW_SPI
+			timer();
+		#endif
+		LAB_595_display();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
