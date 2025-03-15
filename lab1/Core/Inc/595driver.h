@@ -33,7 +33,7 @@
 #define HC595_Data_Low()      HAL_GPIO_WritePin(DS_GPIO_PORT, DS_GPIO_PIN, 0);
 #define HC595_Data_High()     HAL_GPIO_WritePin(DS_GPIO_PORT, DS_GPIO_PIN, 1);
  
- extern float time595 ;
+ extern int time595 ;
 extern int count[8];
 void HC595_GPIO_Config(void);
 void HC595_Send_Byte(unsigned char byte);

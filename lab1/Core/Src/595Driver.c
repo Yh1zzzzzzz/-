@@ -2,7 +2,7 @@
 #include "595driver.h"
 #include "stm32f1xx_hal.h"
 
-float time595 = 0.0;
+int time595 = 0;
 
  const unsigned char digitMapCA[10] = {
     0xC0, // 0
@@ -68,9 +68,7 @@ void HC595_Send_Byte(unsigned char byte)
 		
 		/*** 步骤2：SHCP每产生一个上升沿，当前的bit就被送入移位寄存器 ***/
 		HC595_SHCP_Low()  // SHCP拉低
-		HAL_Delay(1);           // 适当延时
 		HC595_SHCP_High()  // SHCP拉高， SHCP产生上升沿
-		HAL_Delay(1);
 		
 		byte <<= 1;		// 左移一位，将低位往高位移，通过	if (byte & 0x80)判断低位是否为1
 	}
@@ -108,14 +106,16 @@ void HC595_Send_Multi_Byte(unsigned char *data, unsigned short int len)
 // 写入字节为右边的 Q7 - Q0 左边 Q7---Q0
  void LAB_595_display(void){
 	 			char cmd[2];
-		for(int i = 0; i < 8; i++){
-			cmd[0] = DIG_CS_CA[i];
-			cmd[1] = digitMapCC[count[i]];
-			HC595_Send_Multi_Byte(cmd, 2);
-		 //HAL_Delay(1);
-		
-		}
- 
- 
- 
+	 
+	 // clear  before  write ?
+	 
+	 	 // clear  before  write ?
+	 // clear  before  write ?
+	 // clear  before  write ?
+
+//		for(int i = 0; i < 8; i++){
+			cmd[0] = DIG_CS_CA[time595];
+			cmd[1] = digitMapCC[count[time595]];
+			HC595_Send_Multi_Byte(cmd, 2);		
+	//	}
  }

@@ -73,7 +73,6 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
   LED_status = 1;
   /* USER CODE END 1 */
 
@@ -108,16 +107,17 @@ int main(void)
 	
 	//初始化外设,屏幕等
 	OLED_Init();
+	OLED_CLS();
 	//
 	
 	#ifdef SW_SPI
-			LCD_Init();
+			InitLcd();
 	#endif
 	#ifdef HW_SPI
 			LCE_init();
 	#endif
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
-
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
+	OLED_LAB_DISP_name();   //display name & number
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -125,8 +125,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//		LAB_SHOW();
-		LAB_595_display();
+
+		//LAB_595_display();
 		#ifdef SW_SPI
 			LCD_Display_SW();
 		#endif
@@ -134,7 +134,7 @@ int main(void)
 		#ifdef HW_SPI
 			timer();
 		#endif
-		//LAB_595_display();
+		OLED_LAB_DISP(); // update inerrupt cnt and display
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -186,29 +186,30 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	}
 	if(htim == &htim3){
 		time += 0.1;
-  if(time >= 1000){
-    time = 0;
-  }
-	interrupt_cnt++;
-  time595 += 0.1;
-	}
-	if(htim == &htim5){
+		if(time >= 1000){
+			time = 0;
+		}
+		inter_cnt++;
 		count[0]++;
- for(int i =0; i < 8; i++){
-	if(count[i] > 9){
-		count[i] = 0;
-		count[i + 1]++;
-	}
-	// over flow
-	if(count[7] > 9){
-	
-		for(int k= 0; k < 8; k++){
-		
+		for(int i =0; i < 7; i++){
+			if(count[i] > 9){
+			count[i] = 0;
+			count[i + 1]++;
+		}
+		// over flow
+		if(count[7] > 9){
+			for(int k= 0; k < 8; k++){
 			count[k] = 0;
+			}
+		}
+ 
 		}
 	}
- 
- }
+	if(htim == &htim5){
+		time595 += 1;
+		LAB_595_display();
+		time595 = time595 % 8;
+		
 	}
 }
 /* USER CODE END 4 */

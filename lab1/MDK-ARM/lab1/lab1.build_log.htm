@@ -3,168 +3,150 @@
 <pre>
 <h1>�Vision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ��Vision V5.26.2.0
-Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: w Microsoft, Microsoft, LIC=9WSKC-7KEGZ-UHA8H-W2L32-0SQ4V-UEY16
+IDE-Version: ��Vision V5.41.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: YOUNG HT, CQU, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
-Toolchain Path:  C:\Keil\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.10.1
-Assembler:       Armasm.exe V6.10.1
-Linker/Locator:  ArmLink.exe V6.10.1
-Library Manager: ArmAr.exe V6.10.1
-Hex Converter:   FromElf.exe V6.10.1
-CPU DLL:         SARMCM3.DLL V5.26.2.0
-Dialog DLL:      DCM.DLL V1.17.2.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
-Dialog DLL:      TCM.DLL V1.36.1.0
+Toolchain:       MDK-Lite  Version: 5.41.0.0
+Toolchain Path:  D:\Users\ZhuanZ\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.22
+Assembler:       Armasm.exe V6.22
+Linker/Locator:  ArmLink.exe V6.22
+Library Manager: ArmAr.exe V6.22
+Hex Converter:   FromElf.exe V6.22
+CPU DLL:         SARMCM3.DLL V5.41.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
+Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Keil\lab1\MDK-ARM\lab1.uvprojx
+D:\Study\CQU_Study\Computer_Control\lab1\MDK-ARM\lab1.uvprojx
 Project File Date:  03/15/2025
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.10.1', folder: 'C:\Keil\ARM\ARMCLANG\Bin'
+*** Using Compiler 'V6.22', folder: 'D:\Users\ZhuanZ\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'lab1'
 assembling startup_stm32f103xe.s...
-compiling gpio.c...
-compiling main.c...
-compiling i2c.c...
-compiling spi.c...
-compiling tim.c...
 compiling stm32f1xx_it.c...
+compiling gpio.c...
+compiling tim.c...
 compiling LED.c...
+compiling i2c.c...
 compiling stm32f1xx_hal_msp.c...
-../Core/Src/SoftWare_LCD_Driver.c(64): warning: passing 'char [13]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-    LCD_Display_Words_SW(0,1,"<U+91CD><U+5E86><U+5927><U+5B66>");
-                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/SoftWare_LCD_Driver.c(53): note: passing argument to parameter 'str' here
-void LCD_Display_Words_SW(unsigned char x,unsigned char y,unsigned char*str)
-                                                                        ^
-../Core/Src/SoftWare_LCD_Driver.c(68): warning: passing 'char [16]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-    LCD_Display_Words_SW(1,0,"<U+81EA><U+52A8><U+5316><U+5B66><U+9662>");
-                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/SoftWare_LCD_Driver.c(53): note: passing argument to parameter 'str' here
-void LCD_Display_Words_SW(unsigned char x,unsigned char y,unsigned char*str)
-                                                                        ^
-../Core/Src/SoftWare_LCD_Driver.c(73): warning: passing 'char [25]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-    LCD_Display_Words_SW(2,0,"<U+4E8C><U+96F6><U+4E8C><U+4E8C><U+4E00><U+516D><U+516B><U+4E5D>");
-                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/SoftWare_LCD_Driver.c(53): note: passing argument to parameter 'str' here
-void LCD_Display_Words_SW(unsigned char x,unsigned char y,unsigned char*str)
-                                                                        ^
-../Core/Src/SoftWare_LCD_Driver.c(77): warning: passing 'char [8]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-    LCD_Display_Words_SW(3,2,"2021689");
-                             ^~~~~~~~~
-../Core/Src/SoftWare_LCD_Driver.c(53): note: passing argument to parameter 'str' here
-void LCD_Display_Words_SW(unsigned char x,unsigned char y,unsigned char*str)
-                                                                        ^
+../Core/Src/SPI_LCD.c(57): warning: passing 'unsigned char *' to parameter of type 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+   57 |     snprintf(str, 32, "%.1f", time);
+      |              ^~~
+D:\Users\ZhuanZ\AppData\Local\Keil_v5\ARM\ARMCLANG\bin\..\include\stdio.h(440): note: passing argument to parameter here
+  440 | extern _ARMABI int snprintf(char * __restrict /*s*/, size_t /*n*/,
+      |                                                    ^
+../Core/Src/SPI_LCD.c(58): warning: passing 'char[12]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+   58 |                 LCD_Display_Words(0,0,"时间timer");
+      |                                       ^~~~~~~~~~~
+../Core/Src/SPI_LCD.c(46): note: passing argument to parameter 'str' here
+   46 | void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
+      |                                                                      ^
+2 warnings generated.
+compiling SPI_LCD.c...
+compiling spi.c...
+compiling main.c...
+../Core/Src/SoftWare_LCD_Driver.c(574): warning: passing 'char[13]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  574 |     DisplayAt(0,1,"重庆大学");
+      |                   ^~~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(462): note: passing argument to parameter 'p' here
+  462 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+../Core/Src/SoftWare_LCD_Driver.c(578): warning: passing 'char[16]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  578 |     DisplayAt(1,0,"自动化学院");
+      |                   ^~~~~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(462): note: passing argument to parameter 'p' here
+  462 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+../Core/Src/SoftWare_LCD_Driver.c(583): warning: passing 'char[25]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  583 |     DisplayAt(2,0,"二零二二一六八九");
+      |                   ^~~~~~~~~~~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(462): note: passing argument to parameter 'p' here
+  462 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+../Core/Src/SoftWare_LCD_Driver.c(587): warning: passing 'char[8]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  587 |     DisplayAt(3,2,"2021689");
+      |                   ^~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(462): note: passing argument to parameter 'p' here
+  462 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
 4 warnings generated.
 compiling SoftWare_LCD_Driver.c...
-../Core/Src/SPI_LCD.c(56): warning: passing 'unsigned char *' to parameter of type 'char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-    snprintf(str, 32, "%.1f", time);
-             ^~~
-C:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h(440): note: passing argument to parameter here
-extern _ARMABI int snprintf(char * __restrict /*s*/, size_t /*n*/,
-                                                   ^
-../Core/Src/SPI_LCD.c(57): warning: passing 'char [4]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-        LCD_Display_Words(1,0,"<U+738B>");
-                              ^~~~~~~~~~
-../Core/Src/SPI_LCD.c(45): note: passing argument to parameter 'str' here
-void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
-                                                                     ^
-../Core/Src/SPI_LCD.c(58): warning: passing 'char [6]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-    LCD_Display_Words(0, 2, "timer");
-                            ^~~~~~~
-../Core/Src/SPI_LCD.c(45): note: passing argument to parameter 'str' here
-void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
-                                                                     ^
+../Core/Src/I2C_OLED.c(371): warning: passing 'char[5]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  371 |       OLED_ShowStr(0,0,"OLED",2);  //"OLED"
+      |                        ^~~~~~
+../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
+../Core/Src/I2C_OLED.c(428): warning: passing 'char[9]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  428 |           OLED_ShowStr(0,2,"20221689",1);  //"OLED"
+      |                            ^~~~~~~~~~
+../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
+../Core/Src/I2C_OLED.c(435): warning: passing 'char *' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  435 |                 OLED_ShowStr(0,3, intrr_cnt,1);  // interuppt cnt
+      |                                   ^~~~~~~~~
+../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
 3 warnings generated.
-compiling SPI_LCD.c...
-../Core/Src/I2C_OLED.c(14): warning: In file included from...
-../Core/Inc\font.h(282): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
-                "<D1><EE>",
-                 ^~~~~~~~
-../Core/Inc\font.h(287): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
-                "<EA><BB>",
-                 ^~~~~~~~
-../Core/Inc\font.h(292): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
-                "<CC><EC>",
-                 ^~~~~~~~
-../Core/Inc\font.h(297): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
-                "<D6><D8>",
-                 ^~~~~~~~
-../Core/Inc\font.h(304): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
-                "<C7><EC>",
-                 ^~~~~~~~
-../Core/Inc\font.h(309): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
-                "<B4><F3>",
-                 ^~~~~~~~
-../Core/Src/I2C_OLED.c(455): warning: passing 'unsigned char [10]' to parameter of type 'char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-        snprintf(time, sizeof(time), "%d", interrupt_cnt);
-                 ^~~~
-C:\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h(440): note: passing argument to parameter here
-extern _ARMABI int snprintf(char * __restrict /*s*/, size_t /*n*/,
-                                                   ^
-../Core/Src/I2C_OLED.c(459): warning: passing 'char [9]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-          OLED_ShowStr(16,0,"20221689",1);
-                            ^~~~~~~~~~
-../Core/Src/I2C_OLED.c(282): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(signed short int x, signed short int y, unsigned char ch[], unsigned char TextSize)
-                                                                        ^
-8 warnings generated.
 compiling I2C_OLED.c...
-../Core/Src/595Driver.c(114): warning: passing 'char [2]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-                        HC595_Send_Multi_Byte(cmd, 2);
-                                              ^~~
-../Core/Src/595Driver.c(96): note: passing argument to parameter 'data' here
-void HC595_Send_Multi_Byte(unsigned char *data, unsigned short int len)
-                                          ^
+compiling stm32f1xx_hal_gpio_ex.c...
+../Core/Src/595Driver.c(119): warning: passing 'char[2]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  119 |                         HC595_Send_Multi_Byte(cmd, 2);          
+      |                                               ^~~
+../Core/Src/595Driver.c(94): note: passing argument to parameter 'data' here
+   94 | void HC595_Send_Multi_Byte(unsigned char *data, unsigned short int len)
+      |                                           ^
 1 warning generated.
 compiling 595Driver.c...
-compiling stm32f1xx_hal_gpio_ex.c...
 compiling stm32f1xx_hal.c...
-compiling stm32f1xx_hal_rcc.c...
 compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal_rcc.c...
 compiling stm32f1xx_hal_gpio.c...
-compiling stm32f1xx_hal_i2c.c...
-compiling stm32f1xx_hal_dma.c...
 compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_dma.c...
 compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_i2c.c...
 compiling stm32f1xx_hal_flash.c...
 compiling stm32f1xx_hal_flash_ex.c...
 compiling stm32f1xx_hal_exti.c...
-compiling stm32f1xx_hal_spi.c...
-compiling stm32f1xx_hal_tim_ex.c...
 compiling system_stm32f1xx.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling stm32f1xx_hal_spi.c...
 compiling stm32f1xx_hal_tim.c...
 linking...
-Program Size: Code=11712 RO-data=380 RW-data=48 ZI-data=2488  
+Program Size: Code=12104 RO-data=2456 RW-data=812 ZI-data=2492  
 FromELF: creating hex file...
-"lab1\lab1.axf" - 0 Error(s), 16 Warning(s).
+"lab1\lab1.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
-                ARM.CMSIS.5.4.0
-                CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.1.2
+                https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
+                ARM::CMSIS@6.1.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.0.0.pack
-                Keil.STM32F1xx_DFP.2.0.0
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil::STM32F1xx_DFP@2.4.1
                 STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
-  .\RTE\_lab1
-  C:\Keil\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
-  C:\Keil\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
+  ./RTE/_lab1
+  D:/Users/ZhuanZ/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+  D:/Users/ZhuanZ/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.1/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.1.2
+   * Component: ARM::CMSIS:CORE@6.1.0
+      Include file:  CMSIS/Core/Include/tz_context.h
 Build Time Elapsed:  00:00:04
 </pre>
 </body>

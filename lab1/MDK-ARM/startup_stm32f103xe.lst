@@ -542,12 +542,13 @@ ARM Macro Assembler    Page 9
   353 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --depend=lab1
-\startup_stm32f103xe.d -olab1\startup_stm32f103xe.o -I.\RTE\_lab1 -IC:\Keil\ARM
-\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil\ARM\PACK\Keil\STM32F1xx_DFP\
-2.0.0\Device\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VER
-SION SETA 526" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_HD SETA 1" --l
-ist=startup_stm32f103xe.lst startup_stm32f103xe.s
+Command Line: --debug --xref --diag_suppress=9931,A1950W --cpu=Cortex-M3 --depe
+nd=lab1\startup_stm32f103xe.d -olab1\startup_stm32f103xe.o -I.\RTE\_lab1 -ID:\U
+sers\ZhuanZ\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS\Core\Include -ID:\Use
+rs\ZhuanZ\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.1\Device\Include --pre
+define="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_V
+ERSION SETA 541" --predefine="STM32F10X_HD SETA 1" --predefine="_RTE_ SETA 1" -
+-list=startup_stm32f103xe.lst startup_stm32f103xe.s
 
 
 
@@ -1419,4 +1420,4 @@ Symbol: __main
       At line 150 in file startup_stm32f103xe.s
 Comment: __main used once
 2 symbols
-423 symbols in table
+424 symbols in table

@@ -15,7 +15,6 @@ void spi_wirte_data(unsigned char data)
     send[1] = data & 0xf0;
     send[2] = (data << 4) & 0xf0;
     CS_H
-    HAL_Delay(1);
     HAL_SPI_Transmit(&hspi1, send, 3, 1000);
     CS_L;
 }
@@ -37,15 +36,17 @@ void LCE_init(void){
     spi_wirte_cmd(0x03);
     HAL_Delay(2);
     spi_wirte_cmd(0x0c);
+		HAL_Delay(1);
+		spi_wirte_cmd(0x10);//Cursor Display Control光标设置
     HAL_Delay(2);
     spi_wirte_cmd(0x01);
     HAL_Delay(2);
-    spi_wirte_cmd(0x06);
+    spi_wirte_cmd(0x14);
 }
 void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
 { 
 	spi_wirte_cmd(LCD_addr[x][y]); //写初始光标位置
-	while(*str>0)
+	while(*str != 0)
     { 
       spi_wirte_data(*str);    //写数据
       str++;     
@@ -54,7 +55,6 @@ void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
 void timer(void){
     unsigned char* str;
     snprintf(str, 32, "%.1f", time);
-	LCD_Display_Words(1,0,"王");
-    LCD_Display_Words(0, 2, "timer");
-    LCD_Display_Words(2, 4, str);
+		LCD_Display_Words(0,0,"时间timer");
+    LCD_Display_Words(2, 0, str);
 }
