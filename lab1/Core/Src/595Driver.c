@@ -113,9 +113,11 @@ void HC595_Send_Multi_Byte(unsigned char *data, unsigned short int len)
 	 // clear  before  write ?
 	 // clear  before  write ?
 
-//		for(int i = 0; i < 8; i++){
-			cmd[0] = DIG_CS_CA[time595];
-			cmd[1] = digitMapCC[count[time595]];
-			HC595_Send_Multi_Byte(cmd, 2);		
-	//	}
+		for(int i = 0; i < 8; i++){
+			cmd[0] = DIG_CS_CA_INVERTED[7-i];
+			cmd[1] = digitMapCC[count[i]];
+			HC595_Send_Multi_Byte(cmd, 2);	
+			//HAL_Delay(1);
+		
+		}
  }

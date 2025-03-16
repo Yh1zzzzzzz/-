@@ -2,6 +2,7 @@
 #include <stdio.h>
 //#include "stdio.h"
 float time = .0f;
+char SPI_timer[8];
 unsigned char LCD_addr[4][8]={
 	{0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87},  		//第一行
 	{0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97},		//第二行
@@ -30,18 +31,21 @@ void spi_wirte_cmd(unsigned char cmd)
     CS_L;
 }
 void LCE_init(void){
+	for(int i = 0;i < 8;i++){
+		 SPI_timer[i] = '0';
+	}
     HAL_Delay(50);
     spi_wirte_cmd(0x30);
     HAL_Delay(2);
-    spi_wirte_cmd(0x03);
+    //spi_wirte_cmd(0x03);
     HAL_Delay(2);
     spi_wirte_cmd(0x0c);
 		HAL_Delay(1);
-		spi_wirte_cmd(0x10);//Cursor Display Control光标设置
+		//spi_wirte_cmd(0x10);//Cursor Display Control光标设置
     HAL_Delay(2);
     spi_wirte_cmd(0x01);
     HAL_Delay(2);
-    spi_wirte_cmd(0x14);
+    //spi_wirte_cmd(0x14);
 }
 void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
 { 
@@ -53,8 +57,10 @@ void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
     }
 }
 void timer(void){
-    unsigned char* str;
-    snprintf(str, 32, "%.1f", time);
-		LCD_Display_Words(0,0,"时间timer");
-    LCD_Display_Words(2, 0, str);
+    //unsigned char* str;
+    //snprintf(str, 32, "%.1f", time);
+		LCD_Display_Words(0,0,"timer counter");
+			LCD_Display_Words(2,0,SPI_timer);
+
+    //LCD_Display_Words(2, 0, str);
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "stm32f1xx_hal.h"
 extern SPI_HandleTypeDef hspi1;
+extern char SPI_timer[8];
 
 #define SPI_SW_SS_Pin GPIO_PIN_4
 #define SPI_SW_SS_GPIO_Port GPIOC

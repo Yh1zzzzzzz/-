@@ -102,7 +102,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
-	HAL_TIM_Base_Start_IT(&htim5);
+	//HAL_TIM_Base_Start_IT(&htim5);
 
 	
 	//初始化外设,屏幕等
@@ -125,16 +125,18 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
-		//LAB_595_display();
+	
+		LAB_595_display();
 		#ifdef SW_SPI
 			LCD_Display_SW();
 		#endif
 		
 		#ifdef HW_SPI
-			timer();
+			timer();	
 		#endif
-		OLED_LAB_DISP(); // update inerrupt cnt and display
+			OLED_LAB_DISP();
+
+		//OLED_LAB_DISP(); // update inerrupt cnt and display
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -183,14 +185,18 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim == &htim2){
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+
 	}
 	if(htim == &htim3){
 		time += 0.1;
 		if(time >= 1000){
 			time = 0;
 		}
+if(inter_cnt > 9999)
+			inter_cnt = 0;
 		inter_cnt++;
 		count[0]++;
+
 		for(int i =0; i < 7; i++){
 			if(count[i] > 9){
 			count[i] = 0;
@@ -200,6 +206,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		if(count[7] > 9){
 			for(int k= 0; k < 8; k++){
 			count[k] = 0;
+			}
+		}
+ 
+		}
+		
+		SPI_timer[7]++;
+			for(int i =0; i < 7; i++){
+			if(SPI_timer[7-i] > '9'){
+			SPI_timer[7-i] = '0';
+			SPI_timer[6-i]++;
+		}
+		// over flow
+		if(SPI_timer[0] > '9'){
+			for(int k= 0; k < 8; k++){
+			SPI_timer[k] = '0';
 			}
 		}
  
