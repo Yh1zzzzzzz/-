@@ -1,5 +1,5 @@
 #include "tm1650.h"
-
+#include "stm32f1xx_hal.h"
 // 全局变量定义
 
 // 数码管段码表 (0-9, A-F)

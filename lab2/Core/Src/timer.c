@@ -1,5 +1,5 @@
 #include "timer.h"
-#include "i"
+#include "stm32f1xx_hal.h"
 #include "i2c_oled.h"
 /*
 刷新显示
@@ -9,6 +9,11 @@
 传入 3 -> 清零计时 ∂
 传入 4 -> 暂停计时 
 */
+int begin = 0;
+int stop = 0;
+int zero = 0;
+int pause = 0;
+float time = 0;
 void timer(int a)
 {
     switch(a)

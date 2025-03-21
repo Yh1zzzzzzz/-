@@ -1,4 +1,5 @@
 #include "key.h"
+#include "stm32f1xx_hal.h"
 #define S3_Pin GPIO_PIN_7
 #define S3_GPIO_Port GPIOC
 #define S1_Pin GPIO_PIN_8
@@ -26,6 +27,7 @@
  *      - 3: S4按键按下
  *      - 4: S5按键按下
  */
+int keysta[4] = {0, 0, 0, 0};
 int key_scan(void){
     // 读取当前按键状态
     int key1 = HAL_GPIO_ReadPin(S1_GPIO_Port, S1_Pin);

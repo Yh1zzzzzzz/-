@@ -1,5 +1,5 @@
 #include "sw_keyboard.h"
-
+#include "stm32f1xx_hal.h"
 #define R1_Pin GPIO_PIN_0
 #define R1_GPIO_Port GPIOB
 #define R2_Pin GPIO_PIN_1

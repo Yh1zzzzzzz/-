@@ -4,7 +4,6 @@
 char curr_key;
 char history_key[history_key_size];
 int index_key = 0;
-#define history_key_size 16;
 char SPI_timer[8];
 unsigned char LCD_addr[4][8]={
 	{0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87},  		//第一行
@@ -59,14 +58,7 @@ void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
       str++;     
     }
 }
-void timer(void){
-    //unsigned char* str;
-    //snprintf(str, 32, "%.1f", time);
-		LCD_Display_Words(0,0,"timer counter");
-			LCD_Display_Words(2,0,SPI_timer);
-
-    //LCD_Display_Words(2, 0, str);
-}
+\
 void LAB2_request2(void){
   LCD_Display_Words(0,0,"current key:");
   LCD_Display_Words(1,0,(char *)curr_key);

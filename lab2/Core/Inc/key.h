@@ -9,4 +9,4 @@
 #define S5_GPIO_Port GPIOB
 
 int key_scan(void);
-int keysta[4] = {0, 0, 0, 0};
+extern int keysta[4];

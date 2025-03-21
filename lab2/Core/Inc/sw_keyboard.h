@@ -16,6 +16,7 @@
 #define C4_Pin GPIO_PIN_12
 #define C4_GPIO_Port GPIOC
 extern char curr_key;
+#define history_key_size 16
 extern char history_key[history_key_size];
 extern int index_key;
-#define history_key_size 16;
+void scan_KeyBoard();

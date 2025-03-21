@@ -444,5 +444,5 @@ void s2_pressed(void){
 }
 void s3_pressed(void){
 	OLED_ShowStr(0,0,"S3 pressed",2);  //"OLED"
-	OLED_showStr(0,3,"20221689",2);
+	OLED_ShowStr(0,3,"20221689",2);
 }
