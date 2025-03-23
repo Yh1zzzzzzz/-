@@ -12,7 +12,8 @@ void spi_wirte_cmd(unsigned char cmd);
 void LCE_init(void);
 void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str);
 #define history_key_size 16
-extern char curr_key;
-extern char history_key[history_key_size];
+extern unsigned char curr_key;
+extern int lcd_flag;
+extern unsigned char history_key[history_key_size];
 extern int index_key;
 void LAB2_request2(void);

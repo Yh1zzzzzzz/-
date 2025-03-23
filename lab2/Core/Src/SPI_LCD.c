@@ -1,8 +1,8 @@
 #include "spi_lcd.h"
 #include <stdio.h>
 //#include "stdio.h"
-char curr_key;
-char history_key[history_key_size];
+unsigned char curr_key;
+unsigned char history_key[history_key_size];
 int index_key = 0;
 char SPI_timer[8];
 unsigned char LCD_addr[4][8]={
@@ -60,9 +60,12 @@ void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
 }
 \
 void LAB2_request2(void){
+	//unsigned char* key;
+	//*key = curr_key;
   LCD_Display_Words(0,0,"current key:");
-  LCD_Display_Words(1,0,(char *)curr_key);
+	LCD_Display_Words(1,0,"9");
   LCD_Display_Words(2,0,"history key:");
-  LCD_Display_Words(3,0,(char *)history_key);
+  LCD_Display_Words(3,0,(unsigned char *)history_key);
+	lcd_flag = 0;
 
 }

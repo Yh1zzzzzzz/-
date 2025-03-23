@@ -1,5 +1,6 @@
 #include "sw_keyboard.h"
 #include "stm32f1xx_hal.h"
+#include "spi_lcd.h"
 #define R1_Pin GPIO_PIN_0
 #define R1_GPIO_Port GPIOB
 #define R2_Pin GPIO_PIN_1
@@ -121,16 +122,20 @@ void scan_KeyBoard() {
     
     // 根据行列值确定按键
     if (col == 0) return ; // 没有按键按下
-    
+    lcd_flag = 1;
+		
     // 计算键值：(row-1)*4 + col
-    int ret = (row-1)*4 + col;
-    if (ret < 10){
-        curr_key = ret + '0';
+    int ret = (col-1)*4 + row;
+    if (ret <= 10){
+        curr_key = ret - 1  + '0';
         history_key[index_key] = curr_key;
         index_key = (index_key + 1) % history_key_size;
+				//LCD_Display_Words(1,0,(unsigned char *)curr_key);
     }else{
-        curr_key = ret - 10 + 'A';
+        curr_key = ret - 11 + 'A';
         history_key[index_key] = curr_key;
         index_key = (index_key + 1) % history_key_size;
+				//LCD_Display_Words(1,0,(unsigned char *)curr_key);
+
     }
 }

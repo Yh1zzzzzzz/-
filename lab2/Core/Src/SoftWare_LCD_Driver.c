@@ -584,9 +584,3 @@ void Write_xuehao_eng(void){
 //英语位置打印学号
     DisplayAt(3,2,"2021689");
 }
-void LCD_Display_SW(void){
-	DisplayAt(1,0,"current:");
-	ShowNumber_16(2,8,curr_key);
-	DisplayAt(4,0,(char *)history_key);
-
-}

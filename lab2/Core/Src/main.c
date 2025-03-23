@@ -43,7 +43,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define lab1
+#define lab4
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -58,6 +58,8 @@ int key_current;
 int key_history;
 int s4_status = 0;
 int s5_status = 0;
+int clear_bits[5] = {0,0,0,0,0};
+int lcd_flag = 0;
 //extern int LED_status;
 /* USER CODE END PV */
 
@@ -127,38 +129,58 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    key_current = key_scan();
+    
+    /*要求一
+    #ifdef lab1
+      key_current = key_scan();
     if(key_current != 0 && key_current != key_history){
+			for(int k = 0;k < 5;k++){
+				clear_bits[k] = 0;
+			}
       key_history = key_current;
     }
-    /*要求一*/
-    #ifdef lab1
-      
       if(key_history == 0){
-        OLED_CLS();
+				if(!clear_bits[0])
+					OLED_CLS();
 			  OLED_LAB_DISP_name();
+				clear_bits[0] = 1;
       }else if(key_history == 1){
-        OLED_CLS();
+        if(!clear_bits[1])
+					OLED_CLS();
         s2_pressed();
+				clear_bits[1] = 1;
       }else if(key_history == 2){
-        OLED_CLS();
+        if(!clear_bits[2])
+					OLED_CLS();
         s3_pressed();
+				clear_bits[2] = 1;
       }else if(key_history == 3){
-        OLED_CLS();
+        if(!clear_bits[3])
+					OLED_CLS();
         s4_status = 1;
         s5_status = 0;
         OLED_ShowStr(0,0,"S4 pressed",2); 
+				clear_bits[3] = 1;
       }else if(key_history == 4){
-        OLED_CLS();
+        if(!clear_bits[4])
+					OLED_CLS();
         s5_status = 1;
         s4_status = 0;
+				clear_bits[4] = 1;
         OLED_ShowStr(0,0,"S5 pressed",2);
       }
     #endif
+		*/
+		 OLED_ShowStr(0,0,"timer",1);
+		 OLED_ShowStr(0,3,"press 1-> start",1);
+		 OLED_ShowStr(0,4,"press 2-> exit",1);
+		 OLED_ShowStr(0,5,"press 3-> pause",1);
+		 OLED_ShowStr(0,6,"press 4-> zero out",1);
 
     /* 下面是要求二*/
     scan_KeyBoard();
-    LAB2_request2();
+		if(lcd_flag)
+			LAB2_request2();
 		
     /*要求三*/
     uint8_t current_key = TM1650_ReadKey();
@@ -169,7 +191,7 @@ int main(void)
     /*要求四*/
     #ifdef lab4
       
-      display_timer(current_key);
+      timer(current_key);
     #endif
 
     /* USER CODE END WHILE */

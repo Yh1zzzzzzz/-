@@ -1,4 +1,4 @@
-
+void timer(int a);
 extern int begin;
 extern int stop;
 extern int zero;

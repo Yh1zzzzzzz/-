@@ -36,7 +36,7 @@ int key_scan(void){
     int key4 = HAL_GPIO_ReadPin(S5_GPIO_Port, S5_Pin);
     
     // 检查按键1状态变化
-    if (key1 != 0) {
+    if (key1 != 1) {
         HAL_Delay(20); // 延时20ms去抖动
         // 再次读取确认状态稳定
         if (key1 == HAL_GPIO_ReadPin(S1_GPIO_Port, S1_Pin)) {
@@ -46,7 +46,7 @@ int key_scan(void){
     }
     
     // 检查按键2状态变化
-    if (key2 != 0) {
+    if (key2 != 1) {
         HAL_Delay(20); // 延时20ms去抖动
         // 再次读取确认状态稳定
         if (key2 == HAL_GPIO_ReadPin(S3_GPIO_Port, S3_Pin)) {
@@ -56,7 +56,7 @@ int key_scan(void){
     }
     
     // 检查按键3状态变化
-    if (key3 != 0) {
+    if (key3 != 1) {
         HAL_Delay(20); // 延时20ms去抖动
         // 再次读取确认状态稳定
         if (key3 == HAL_GPIO_ReadPin(S4_GPIO_Port, S4_Pin)) {
@@ -66,7 +66,7 @@ int key_scan(void){
     }
     
     // 检查按键4状态变化
-    if (key4 != 0) {
+    if (key4 != 1) {
         HAL_Delay(20); // 延时20ms去抖动
         // 再次读取确认状态稳定
         if (key4 == HAL_GPIO_ReadPin(S5_GPIO_Port, S5_Pin)) {

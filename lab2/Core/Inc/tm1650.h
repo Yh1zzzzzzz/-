@@ -43,8 +43,8 @@ void TM1650_DisplayKeyValue(uint8_t keyValue);
 #define TM1650_SDA_0 HAL_GPIO_WritePin(SW_SDA_GPIO_Port, SW_SDA_Pin, 0) 
 
 #define history_key_size 16
-extern char curr_key;
-extern char history_key[history_key_size];
+extern unsigned char curr_key;
+extern unsigned char history_key[history_key_size];
 extern int index_key;
 
 #endif /* __TM1650_H */

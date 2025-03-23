@@ -15,8 +15,10 @@
 #define C3_GPIO_Port GPIOC
 #define C4_Pin GPIO_PIN_12
 #define C4_GPIO_Port GPIOC
-extern char curr_key;
+extern unsigned char  curr_key;
+extern int lcd_flag;
+
 #define history_key_size 16
-extern char history_key[history_key_size];
+extern unsigned char history_key[history_key_size];
 extern int index_key;
 void scan_KeyBoard();

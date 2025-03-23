@@ -420,12 +420,13 @@ for(i=0;i<6;i++)
 }
 void OLED_LAB_DISP_name(void){
 	
-		char* intrr_cnt;
-		snprintf(intrr_cnt, 5,"%d",inter_cnt);
-		OLED_ShowCN(0, 0, 0); // show name
-		OLED_ShowCN(16, 0, 1); // show name
-		OLED_ShowCN(32, 0, 2); // show name
-	  OLED_ShowStr(0,2,"20221689",2);  //"OLED"
+		//char* intrr_cnt;
+		//snprintf(intrr_cnt, 5,"%d",inter_cnt);
+		//OLED_ShowCN(0, 0, 0); // show name
+		//OLED_ShowCN(16, 0, 1); // show name
+		//OLED_ShowCN(32, 0, 2); // show name
+		//OLED_ShowStr(0, 1,"not pressed yet",1);
+	  OLED_ShowStr(0,3,"20221689",2);  //"OLED"
 
 }
 void OLED_LAB_DISP(void){

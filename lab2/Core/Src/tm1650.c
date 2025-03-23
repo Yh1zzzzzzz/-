@@ -256,7 +256,7 @@ void TM1650_DisplayKeyValue(uint8_t keyValue) {
     if (keyValue == 0) return;
     
     // 更新当前按键
-    curr_key = keyValue;
+    //curr_key = keyValue;
     
     // 将当前按键值转换为字符并存入历史记录
     char keyChar;
@@ -267,8 +267,8 @@ void TM1650_DisplayKeyValue(uint8_t keyValue) {
     }
     
     // 将按键字符添加到历史记录
-    history_key[index_key] = keyChar;
-    index_key = (index_key + 1) % history_key_size;
+    //history_key[index_key] = keyChar;
+    //index_key = (index_key + 1) % history_key_size;
     
     // 在第3位数码管上显示按键值
     TM1650_DisplayDigit(3, keyValue <= 9 ? keyValue : (keyValue - 10 + 10), 0);

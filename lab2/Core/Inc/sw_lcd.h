@@ -47,8 +47,5 @@ void SerialShow_picture12864(u8 line,u8 column,u8 *address);
 void Serial_draw_word(uchar *x, uchar y); 
 void Serial_print_sinx(void);
 void LCD_Display_SW(void);
-#define history_key_size 16
-extern char curr_key;
-extern char history_key[history_key_size];
-extern int index_key;
+
 #endif
