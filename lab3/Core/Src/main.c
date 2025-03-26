@@ -62,6 +62,7 @@ int s4_status = 0;
 int s5_status = 0;
 int clear_bits[5] = {0,0,0,0,0};
 int lcd_flag = 0;
+unsigned int voltage = 0;
 //extern int LED_status;
 /* USER CODE END PV */
 
@@ -250,11 +251,13 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  voltage = (voltage + 1) % 4096;
 	if(htim == &htim2){
     if(s4_status == 1){
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
     }
 
+    DAC122S085(0, 0x01, voltage);
 	}
 	if(htim == &htim3){
     DAC0832_SineWave_Update();
