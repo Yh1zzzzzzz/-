@@ -36,6 +36,8 @@
 #include "timer.h"
 #include "tm1650.h"
 #include "dac0832.h"
+#include "dac.h"
+#include "DAC122S085.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -122,16 +124,16 @@ int main(void)
 
 	
 	//��ʼ������,��Ļ��
-	OLED_Init();
-	OLED_CLS();
-  DAC_0832_Init();
+	//OLED_Init();
+	//OLED_CLS();
+  DAC0832_Init();
   DAC0832_SineWave_Init();
 	//
-	LCE_init();
+	//LCE_init();
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
-	OLED_LAB_DISP_name();   //display name & number
-  TM1650_Init();
-  TM1650_SetBrightness(5);
+	//OLED_LAB_DISP_name();   //display name & number
+  //TM1650_Init();
+  //TM1650_SetBrightness(5);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -180,27 +182,18 @@ int main(void)
       }
     #endif
 		*/
-		 OLED_ShowStr(0,0,"timer",1);
-		 OLED_ShowStr(0,3,"press 1-> start",1);
-		 OLED_ShowStr(0,4,"press 2-> exit",1);
-		 OLED_ShowStr(0,5,"press 3-> pause",1);
-		 OLED_ShowStr(0,6,"press 4-> zero out",1);
+	
 
     /* 下面是要求二*/
-    scan_KeyBoard();
-		if(lcd_flag)
-			LAB2_request2();
+    
 		
     /*要求三*/
-    uint8_t current_key = TM1650_ReadKey();
-    if(current_key != 0){
-      TM1650_DisplayKeyValue(current_key);
-      HAL_Delay(50);
-    }
+    
+    
     /*要求四*/
     #ifdef lab4
       
-      timer(current_key);
+      //timer(current_key);
     #endif
 
     /* USER CODE END WHILE */

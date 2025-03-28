@@ -1,4 +1,5 @@
 #include "DAC122S085.h"
+extern SPI_HandleTypeDef hspi1;
 
 /**
   * @brief  初始化DAC122S085
@@ -56,7 +57,7 @@ void DAC122S085(unsigned char ch, unsigned char md, unsigned int daout) {
     // 查询阻塞式发送16位数据
     if (HAL_SPI_Transmit(&hspi1, (uint8_t*)&data, 1, HAL_MAX_DELAY) != HAL_OK) {
         // 发送错误处理
-        Error_Handler();
+        //Error_Handler();
     }
     
 }
