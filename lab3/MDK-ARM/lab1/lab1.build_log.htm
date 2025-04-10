@@ -3,121 +3,185 @@
 <pre>
 <h1>�Vision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ��Vision V5.26.2.0
-Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: w Microsoft, Microsoft, LIC=9WSKC-7KEGZ-UHA8H-W2L32-0SQ4V-UEY16
+IDE-Version: ��Vision V5.41.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: YOUNG HT, CQU, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
-Toolchain Path:  C:\Keil\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.10.1
-Assembler:       Armasm.exe V6.10.1
-Linker/Locator:  ArmLink.exe V6.10.1
-Library Manager: ArmAr.exe V6.10.1
-Hex Converter:   FromElf.exe V6.10.1
-CPU DLL:         SARMCM3.DLL V5.26.2.0
-Dialog DLL:      DCM.DLL V1.17.2.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
-Dialog DLL:      TCM.DLL V1.36.1.0
+Toolchain:       MDK-Lite  Version: 5.41.0.0
+Toolchain Path:  D:\Users\ZhuanZ\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.22
+Assembler:       Armasm.exe V6.22
+Linker/Locator:  ArmLink.exe V6.22
+Library Manager: ArmAr.exe V6.22
+Hex Converter:   FromElf.exe V6.22
+CPU DLL:         SARMCM3.DLL V5.41.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
+Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-F:\Computer_Control\lab2\MDK-ARM\lab1.uvprojx
-Project File Date:  03/22/2025
+D:\Study\CQU_Study\Computer_Control\computer_control\lab3\MDK-ARM\lab1.uvprojx
+Project File Date:  03/28/2025
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.10.1', folder: 'C:\Keil\ARM\ARMCLANG\Bin'
-Build target 'lab1'
-../Core/Src/main.c(174): warning: passing 'char [6]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-                 OLED_ShowStr(0,0,"timer",1);
-                                  ^~~~~~~
-../Core/Inc\i2c_oled.h(18): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize);
-                                                                  ^
-../Core/Src/main.c(175): warning: passing 'char [16]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-                 OLED_ShowStr(0,3,"press 1-> start",1);
-                                  ^~~~~~~~~~~~~~~~~
-../Core/Inc\i2c_oled.h(18): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize);
-                                                                  ^
-../Core/Src/main.c(176): warning: passing 'char [15]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-                 OLED_ShowStr(0,4,"press 2-> exit",1);
-                                  ^~~~~~~~~~~~~~~~
-../Core/Inc\i2c_oled.h(18): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize);
-                                                                  ^
-../Core/Src/main.c(177): warning: passing 'char [16]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-                 OLED_ShowStr(0,5,"press 3-> pause",1);
-                                  ^~~~~~~~~~~~~~~~~
-../Core/Inc\i2c_oled.h(18): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize);
-                                                                  ^
-../Core/Src/main.c(178): warning: passing 'char [19]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-                 OLED_ShowStr(0,6,"press 4-> zero out",1);
-                                  ^~~~~~~~~~~~~~~~~~~~
-../Core/Inc\i2c_oled.h(18): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize);
-                                                                  ^
-5 warnings generated.
+*** Using Compiler 'V6.22', folder: 'D:\Users\ZhuanZ\AppData\Local\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'lab1'
+assembling startup_stm32f103xe.s...
+compiling SW_keyboard.c...
+compiling LED.c...
 compiling main.c...
-../Core/Src/I2C_OLED.c(371): warning: passing 'char [5]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-      OLED_ShowStr(0,0,"OLED",2);  //"OLED"
-                       ^~~~~~
+../Core/Src/I2C_OLED.c(371): warning: passing 'char[5]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  371 |       OLED_ShowStr(0,0,"OLED",2);  //"OLED"
+      |                        ^~~~~~
 ../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
-                                                                  ^
-../Core/Src/I2C_OLED.c(429): warning: passing 'char [9]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-          OLED_ShowStr(0,3,"20221689",2);  //"OLED"
-                           ^~~~~~~~~~
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
+../Core/Src/I2C_OLED.c(429): warning: passing 'char[9]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  429 |           OLED_ShowStr(0,3,"20221689",2);  //"OLED"
+      |                            ^~~~~~~~~~
 ../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
-                                                                  ^
-../Core/Src/I2C_OLED.c(441): warning: passing 'char [11]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-        OLED_ShowStr(0,0,"S2 pressed",2);  //"OLED"
-                         ^~~~~~~~~~~~
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
+../Core/Src/I2C_OLED.c(441): warning: passing 'char[11]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  441 |         OLED_ShowStr(0,0,"S2 pressed",2);  //"OLED"
+      |                          ^~~~~~~~~~~~
 ../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
-                                                                  ^
-../Core/Src/I2C_OLED.c(447): warning: passing 'char [11]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-        OLED_ShowStr(0,0,"S3 pressed",2);  //"OLED"
-                         ^~~~~~~~~~~~
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
+../Core/Src/I2C_OLED.c(447): warning: passing 'char[11]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  447 |         OLED_ShowStr(0,0,"S3 pressed",2);  //"OLED"
+      |                          ^~~~~~~~~~~~
 ../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
-                                                                  ^
-../Core/Src/I2C_OLED.c(448): warning: passing 'char [9]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
-        OLED_ShowStr(0,3,"20221689",2);
-                         ^~~~~~~~~~
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
+../Core/Src/I2C_OLED.c(448): warning: passing 'char[9]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  448 |         OLED_ShowStr(0,3,"20221689",2);
+      |                          ^~~~~~~~~~
 ../Core/Src/I2C_OLED.c(268): note: passing argument to parameter 'ch' here
-void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
-                                                                  ^
+  268 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+      |                                                                   ^
 5 warnings generated.
 compiling I2C_OLED.c...
+compiling GPIO_KEY.c...
+../Core/Src/595Driver.c(119): warning: passing 'char[2]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  119 |                         HC595_Send_Multi_Byte(cmd, 2);  
+      |                                               ^~~
+../Core/Src/595Driver.c(94): note: passing argument to parameter 'data' here
+   94 | void HC595_Send_Multi_Byte(unsigned char *data, unsigned short int len)
+      |                                           ^
+1 warning generated.
+compiling 595Driver.c...
+../Core/Src/timer.c(47): warning: passing 'char[15]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+   47 |         OLED_ShowStr(0,0,"press to start",2);
+      |                          ^~~~~~~~~~~~~~~~
+../Core/Inc\i2c_oled.h(18): note: passing argument to parameter 'ch' here
+   18 | void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize);
+      |                                                                   ^
+1 warning generated.
+compiling timer.c...
+../Core/Src/SPI_LCD.c(65): warning: passing 'char[13]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+   65 |   LCD_Display_Words(0,0,"current key:");
+      |                         ^~~~~~~~~~~~~~
+../Core/Src/SPI_LCD.c(52): note: passing argument to parameter 'str' here
+   52 | void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
+      |                                                                      ^
+../Core/Src/SPI_LCD.c(66): warning: passing 'char[2]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+   66 |         LCD_Display_Words(1,0,"9");
+      |                               ^~~
+../Core/Src/SPI_LCD.c(52): note: passing argument to parameter 'str' here
+   52 | void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
+      |                                                                      ^
+../Core/Src/SPI_LCD.c(67): warning: passing 'char[13]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+   67 |   LCD_Display_Words(2,0,"history key:");
+      |                         ^~~~~~~~~~~~~~
+../Core/Src/SPI_LCD.c(52): note: passing argument to parameter 'str' here
+   52 | void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str)
+      |                                                                      ^
+3 warnings generated.
+compiling SPI_LCD.c...
+compiling tm1650.c...
+compiling gpio.c...
+../Core/Src/SoftWare_LCD_Driver.c(572): warning: passing 'char[13]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  572 |     DisplayAt(0,1,"重庆大学");
+      |                   ^~~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(460): note: passing argument to parameter 'p' here
+  460 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+../Core/Src/SoftWare_LCD_Driver.c(576): warning: passing 'char[16]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  576 |     DisplayAt(1,0,"自动化学院");
+      |                   ^~~~~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(460): note: passing argument to parameter 'p' here
+  460 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+../Core/Src/SoftWare_LCD_Driver.c(581): warning: passing 'char[25]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  581 |     DisplayAt(2,0,"二零二二一六八九");
+      |                   ^~~~~~~~~~~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(460): note: passing argument to parameter 'p' here
+  460 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+../Core/Src/SoftWare_LCD_Driver.c(585): warning: passing 'char[8]' to parameter of type 'unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  585 |     DisplayAt(3,2,"2021689");
+      |                   ^~~~~~~~~
+../Core/Src/SoftWare_LCD_Driver.c(460): note: passing argument to parameter 'p' here
+  460 | void DisplayAt(unsigned char hang,unsigned char lie,unsigned char *p)
+      |                                                                    ^
+4 warnings generated.
+compiling SoftWare_LCD_Driver.c...
+compiling i2c.c...
+compiling spi.c...
+compiling dac.c...
+compiling stm32f1xx_it.c...
+compiling tim.c...
+compiling stm32f1xx_hal_msp.c...
+compiling DAC122S085.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling dac0832.c...
+compiling stm32f1xx_hal_dac.c...
+compiling stm32f1xx_hal_dac_ex.c...
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal_gpio.c...
+compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_exti.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_flash.c...
+compiling stm32f1xx_hal_dma.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling system_stm32f1xx.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling stm32f1xx_hal_spi.c...
+compiling stm32f1xx_hal_tim.c...
+compiling stm32f1xx_hal_i2c.c...
 linking...
-Program Size: Code=10766 RO-data=2458 RW-data=48 ZI-data=1496  
+Program Size: Code=9360 RO-data=392 RW-data=16 ZI-data=1736  
 FromELF: creating hex file...
-"lab1\lab1.axf" - 0 Error(s), 10 Warning(s).
+"lab1\lab1.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
-                ARM.CMSIS.5.4.0
-                CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.1.2
+                https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
+                ARM::CMSIS@6.1.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.0.0.pack
-                Keil.STM32F1xx_DFP.2.0.0
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil::STM32F1xx_DFP@2.4.1
                 STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
-  .\RTE\_lab1
-  C:\Keil\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
-  C:\Keil\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
+  ./RTE/_lab1
+  D:/Users/ZhuanZ/AppData/Local/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+  D:/Users/ZhuanZ/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.4.1/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.1.2
-Build Time Elapsed:  00:00:06
+   * Component: ARM::CMSIS:CORE@6.1.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

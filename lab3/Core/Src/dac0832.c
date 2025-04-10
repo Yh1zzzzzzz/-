@@ -1,6 +1,28 @@
 #include "dac0832.h"
 #include "math.h"
 
+// Make sure these definitions match what's in your header file
+#define DAC_D0_Pin GPIO_PIN_12
+#define DAC_D0_GPIO_Port GPIOB
+#define DAC_D1_Pin GPIO_PIN_13
+#define DAC_D1_GPIO_Port GPIOB
+#define DAC_D2_Pin GPIO_PIN_14
+#define DAC_D2_GPIO_Port GPIOB
+#define DAC_D3_Pin GPIO_PIN_15
+#define DAC_D3_GPIO_Port GPIOB
+#define DAC_D4_Pin GPIO_PIN_6
+#define DAC_D4_GPIO_Port GPIOC
+#define DAC_D5_Pin GPIO_PIN_7
+#define DAC_D5_GPIO_Port GPIOC
+#define DAC_D6_Pin GPIO_PIN_8
+#define DAC_D6_GPIO_Port GPIOC
+#define DAC_D7_Pin GPIO_PIN_9
+#define DAC_D7_GPIO_Port GPIOC
+#define DAC_CS_Pin GPIO_PIN_8
+#define DAC_CS_GPIO_Port GPIOA
+#define DAC_WR_Pin GPIO_PIN_9   // Added this definition
+#define DAC_WR_GPIO_Port GPIOA  // Added this definition
+
 // 正弦波查找表
 #define SINE_POINTS 256
 uint8_t sine_table[SINE_POINTS];
@@ -14,8 +36,8 @@ void DAC0832_Init(void)
   // 确保GPIO端口已经在MX_GPIO_Init()中初始化
   
   // 初始化CS和WR为高电平
-  HAL_GPIO_WritePin(DAC_CS_PORT, DAC_CS_PIN, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(DAC_WR_PORT, DAC_WR_PIN, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(DAC_CS_GPIO_Port, DAC_CS_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(DAC_WR_GPIO_Port, DAC_WR_Pin, GPIO_PIN_SET);
 }
 
 /**
@@ -25,29 +47,29 @@ void DAC0832_Init(void)
 void DAC0832_Write(uint8_t data)
 {
   // 拉低CS信号，选中芯片
-  HAL_GPIO_WritePin(DAC_CS_PORT, DAC_CS_PIN, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_CS_GPIO_Port, DAC_CS_Pin, GPIO_PIN_RESET);
   
   // 拉低WR信号，开始写入
-  HAL_GPIO_WritePin(DAC_WR_PORT, DAC_WR_PIN, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_WR_GPIO_Port, DAC_WR_Pin, GPIO_PIN_RESET);
   
   // 逐位设置数据线
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D0_PIN, (data & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D1_PIN, (data & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D2_PIN, (data & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D3_PIN, (data & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D4_PIN, (data & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D5_PIN, (data & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D6_PIN, (data & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(DAC_DATA_PORT, DAC_D7_PIN, (data & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D0_GPIO_Port, DAC_D0_Pin, (data & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D1_GPIO_Port, DAC_D1_Pin, (data & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D2_GPIO_Port, DAC_D2_Pin, (data & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D3_GPIO_Port, DAC_D3_Pin, (data & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D4_GPIO_Port, DAC_D4_Pin, (data & 0x10) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D5_GPIO_Port, DAC_D5_Pin, (data & 0x20) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D6_GPIO_Port, DAC_D6_Pin, (data & 0x40) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DAC_D7_GPIO_Port, DAC_D7_Pin, (data & 0x80) ? GPIO_PIN_SET : GPIO_PIN_RESET);
   
   // 等待一小段时间，确保数据稳定
   for(uint8_t i = 0; i < 10; i++);
   
   // 拉高WR信号，锁存数据
-  HAL_GPIO_WritePin(DAC_WR_PORT, DAC_WR_PIN, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(DAC_WR_GPIO_Port, DAC_WR_Pin, GPIO_PIN_SET);
   
   // 拉高CS信号，结束写入
-  HAL_GPIO_WritePin(DAC_CS_PORT, DAC_CS_PIN, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(DAC_CS_GPIO_Port, DAC_CS_Pin, GPIO_PIN_SET);
 }
 
 /**

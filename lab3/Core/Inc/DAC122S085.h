@@ -1,7 +1,7 @@
 #ifndef __DAC122S085_H
 #define __DAC122S085_H
 
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal.h"
 
 #define SPI_SW_SS_Pin GPIO_PIN_4
 #define SPI_SW_SS_GPIO_Port GPIOC
