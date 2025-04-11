@@ -54,6 +54,10 @@
 
 /* USER CODE BEGIN PV */
 //extern int LED_status;
+uint16_t ADC_value = 0;
+float ADC_Value_float = 0;
+uint16_t AD1674_uint16 = 0;
+float AD1674_value = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -92,10 +96,13 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+  //  MX_GPIO_Init(); //这里已经对38多路选择器进行了初始化
+  //  38多路选择选择的是通道0 
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
+  MX_GPIO_Init(); //这里已经对38多路选择器进行了初始化
   MX_SPI1_Init();
   MX_TIM2_Init();
   MX_I2C1_Init();
@@ -103,12 +110,12 @@ int main(void)
   MX_TIM3_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+  HAL_ADCEx_Calibration_Start(&hadc1);
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
 	//HAL_TIM_Base_Start_IT(&htim5);
 
 	
-	//��ʼ������,��Ļ��
 	OLED_Init();
 	OLED_CLS();
 	//
@@ -117,13 +124,25 @@ int main(void)
 			LCE_init();
 	#endif
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
-	OLED_LAB_DISP_name();   //display name & number
+  HAL_ADC_Start(&hadc1);
+  AD1674_Init(); //初始化AD1674
+  HAL_Delay(100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if(HAL_IS_BIT_SET(HAL_ADC_GetState(&hadc1), HAL_ADC_STATE_REG_EOC))
+    { 
+    ADC_value = HAL_ADC_GetValue(&hadc1);   //获取AD值
+    }
+
+    ADC_Value_float = (float)ADC_Value * 3.3 / 4096; //将AD值转换为电压值
+    LCD_Display_Lab(); //显示AD值
+    AD1674_uint16 = AD1674_ReadADC(); //读取AD1674的值
+    AD1674_value = ((float)AD1674_uint16 / 4096.0f) * 10.0f - 5.0f; //将AD值转换为电压值
+    HAL_Delay(50);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
