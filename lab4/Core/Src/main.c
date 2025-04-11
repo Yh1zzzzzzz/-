@@ -138,7 +138,7 @@ int main(void)
     ADC_value = HAL_ADC_GetValue(&hadc1);   //获取AD值
     }
 
-    ADC_Value_float = (float)ADC_Value * 3.3 / 4096; //将AD值转换为电压值
+    ADC_Value_float = (float)ADC_value * 3.3 / 4096; //将AD值转换为电压值
     LCD_Display_Lab(); //显示AD值
     AD1674_uint16 = AD1674_ReadADC(); //读取AD1674的值
     AD1674_value = ((float)AD1674_uint16 / 4096.0f) * 10.0f - 5.0f; //将AD值转换为电压值
