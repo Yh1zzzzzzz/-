@@ -1,0 +1,21 @@
+build-idx:
+  generated-by: csolution version 2.8.0
+  csolution: lab1.csolution.yml
+  tmpdir: tmp
+  cprojects:
+    - cproject: lab1.cproject.yml
+  cbuilds:
+    - cbuild: lab1+lab1.cbuild.yml
+      project: lab1
+      configuration: +lab1
+      errors: true
+      messages:
+        errors:
+          - file 'D:/Study/CQU_Study/Computer_Control/lab1/MDK-ARM/RTE/Device/STM32F103RC/STM32F101_102_103_105_107.dbgconf' not found; use --update-rte
+        info:
+          - lab1.cbuild-pack.yml - file is already up-to-date
+          - lab1+lab1.cbuild-run.yml - file generated successfully
+          - lab1+lab1.cbuild.yml - file is already up-to-date
+      packs-unused:
+        - pack: ARM::CMSIS-DSP@1.16.2
+        - pack: ARM::CMSIS-NN@4.1.0
