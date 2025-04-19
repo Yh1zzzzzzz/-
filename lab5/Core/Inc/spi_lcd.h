@@ -11,7 +11,8 @@ void spi_wirte_data(unsigned char data);
 void spi_wirte_cmd(unsigned char cmd);
 void LCE_init(void);
 void LCD_Display_Words(unsigned char x,unsigned char y,unsigned char*str);
+void LCD_Display_Lab();
 #define history_key_size 16
 void LAB2_request2(void);
-extern ADC_value = 0;
-extern ADC_Value_float = 0;
+extern uint16_t ADC_value ;
+extern float ADC_Value_float ;

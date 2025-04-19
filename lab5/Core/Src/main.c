@@ -37,6 +37,7 @@
 #include "timer.h"
 #include "tm1650.h"
 #include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -237,7 +238,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
             if(counter % (10/flashFrequency) == 0) {
                 HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
             }
- 	}
+				}
+		}
 	if(htim == &htim5){
 	
 		

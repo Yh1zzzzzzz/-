@@ -75,5 +75,5 @@ void LCD_Display_Lab(){
   //打印ADC的值
 
   LCD_Display_Words(0,0,"current key:");
-	LCD_Display_Words(1,0,curr_key);
+	LCD_Display_Words(1,0,&curr_key);
 }
