@@ -66,13 +66,17 @@ int clear_bits[5] = {0,0,0,0,0};
 int lcd_flag = 0;
 uint16_t ADC_value = 0;
 float ADC_Value_float = 0;
-char *name_key = "YangHaoTian Key3 pressed";
-char *number_key = "20221689 Key6 pressed";
+char *name_key = "YangHaoTian Key3 pressed\n"; //27
+char *number_key = "20221689 Key6 pressed\n"; //23
 char ADC_str[64] ;
-uint8_t uartRxBuffer[128];
+uint8_t uartRxBuffer[12];
 uint8_t uartTxBuffer[128];
 uint8_t ledStatus = 0;      // LED状态：0-关闭，1-打开，2-闪烁
 uint8_t flashFrequency = 1; // 闪烁频率，默认1Hz
+uint16_t rxIndex = 0; // 接收索引
+uint8_t uartRxChar; // 单字符接收缓冲区
+
+
 //extern int LED_status;
 /* USER CODE END PV */
 
@@ -132,12 +136,12 @@ int main(void)
 
 	
 	//��ʼ������,��Ļ��
-	OLED_Init();
-	OLED_CLS();
+	//OLED_Init();
+	//OLED_CLS();
 	//
 	LCE_init();
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1); //led 
-	OLED_LAB_DISP_name();   //display name & number
+	//OLED_LAB_DISP_name();   //display name & number
   HAL_ADC_Start(&hadc1);
   /* USER CODE END 2 */
 
@@ -145,7 +149,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    
+    	//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0); //led 
+		HAL_ADC_Start(&hadc1);
+		HAL_ADC_PollForConversion(&hadc1, 10);
     if(HAL_IS_BIT_SET(HAL_ADC_GetState(&hadc1), HAL_ADC_STATE_REG_EOC))
     { 
     ADC_value = HAL_ADC_GetValue(&hadc1);   //获取AD值
@@ -156,11 +162,11 @@ int main(void)
     {
       if (curr_key == '3')
       {
-        HAL_UART_Transmit(&huart2, (uint8_t *)name_key, sizeof(name_key), 1000); //发送名字
+        HAL_UART_Transmit(&huart2, (uint8_t *)name_key, sizeof(name_key) * 30, 1000); //发送名字
       }
       if(curr_key == '6')
       {
-        HAL_UART_Transmit(&huart2, (uint8_t *)number_key, sizeof(number_key), 1000); //发送学号
+        HAL_UART_Transmit(&huart2, (uint8_t *)number_key, sizeof(number_key) * 30, 1000); //发送学号
       }
 
     }
@@ -225,8 +231,10 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim == &htim2){
-    snprintf(ADC_str, sizeof(ADC_str), "ADC value: %.2fV\nADC value(12bit): %d", ADC_Value_float, ADC_value);
+    snprintf(ADC_str, sizeof(ADC_str), "ADC value: %.2fV\nADC value(12bit): %d\n", ADC_Value_float, ADC_value);
     HAL_UART_Transmit(&huart2, (uint8_t *)ADC_str, sizeof(ADC_str), 1000); //发送AD值
+		                //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+
 	}
 	if(htim == &htim3){
         static uint8_t counter = 0;
@@ -302,6 +310,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   }else{
     HAL_UART_Transmit(&huart2, (uint8_t *)"Error: Unknown UART instance\n", 30, 1000); // 错误处理
   }
+	        //memset(uartRxBuffer, 0, sizeof(uartRxBuffer));
+
 }
 /* USER CODE END 4 */
 
