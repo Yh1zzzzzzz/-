@@ -18,4 +18,4 @@ extern uint16_t ADC_value ;
 extern float ADC_Value_float ;
 extern int Moter_direction;
 extern int PWM_pulse;
-extern float RPM;
+extern volatile float RPM;

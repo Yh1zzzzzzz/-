@@ -77,7 +77,7 @@ void LCD_Display_Lab(){
   // //打印ADC的值
 
   // LCD_Display_Words(0,0,"current key:");
-	// LCD_Display_Words(1,0,&curr_key);
+	 LCD_Display_Words(3,0,&curr_key);
   //打印
   //1. 占空比 2.电机方向 3. 电机速度
   if(Moter_direction == 0){
