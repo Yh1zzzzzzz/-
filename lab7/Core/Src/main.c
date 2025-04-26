@@ -68,7 +68,7 @@ float ADC_Value_float = 0;
 char *name_key = "YangHaoTian Key3 pressed\n"; //27
 char *number_key = "20221689 Key6 pressed\n"; //23
 char ADC_str[64] = "hello world\n"; //64;
-uint8_t uartRxBuffer[12];
+uint8_t uartRxBuffer[10];
 uint8_t uartTxBuffer[128];
 uint8_t ledStatus = 0;      // LED状态：0-关闭，1-打开，2-闪烁
 uint8_t flashFrequency = 1; // 闪烁频率，默认1Hz
@@ -144,6 +144,8 @@ int main(void)
   HAL_UART_Receive_IT(&huart2, uartRxBuffer, sizeof(uartRxBuffer)); //开启串口接收中断
 	LCE_init();
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0); //led 
+	OLED_Init();
+	OLED_CLS();
 	//OLED_LAB_DISP_name();   //display name & number
   /* USER CODE END 2 */
 
@@ -176,14 +178,24 @@ int main(void)
         //加速
         Moteor_Speed_change(1);
       }
+			 if(curr_key == '9')
+      {
+        //加速
+        Moteor_Speed_change(1);
+      }
       if (curr_key == '6')
+      {
+        //减速
+        Moteor_Speed_change(2);
+      }
+			if (curr_key == 'A')
       {
         //减速
         Moteor_Speed_change(2);
       }
     }
     LCD_Display_Lab(); //LCD display ADC value
-        /*要求四*/
+		OLED_LAB_DISP_name();        /*要求四*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -234,7 +246,7 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim == &htim2){
     HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13); //LED闪烁
-    HAL_UART_Transmit(&huart2, (uint8_t *)ADC_str, sizeof(ADC_str), 1000); //发送AD值
+    //HAL_UART_Transmit(&huart2, (uint8_t *)ADC_str, sizeof(ADC_str), 1000); //发送AD值
 	}
 	if(htim == &htim3){
 

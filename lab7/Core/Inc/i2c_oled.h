@@ -26,6 +26,8 @@ extern int inter_cnt;
 		void OLED_LAB_DISP(void);
 void s2_pressed(void);
 void s3_pressed(void);
-
+extern int Moter_direction;
+extern int PWM_pulse;
+extern volatile float RPM;
  void OLED_ShowNumber_16(unsigned char x,unsigned char y,unsigned short dat);
 #endif

@@ -36,6 +36,8 @@ Function List:
  uint8_t  disp_buf[]="1234";	//?????????
  uint8_t  code[]="0123456789";	//ASCLL??
  int inter_cnt;
+ char PWM_Ratio_char_oled[8];
+char RPM_char_oled[8];
 //static void MX_I2C2_Init(void)
 //{
 
@@ -426,8 +428,22 @@ void OLED_LAB_DISP_name(void){
 		//OLED_ShowCN(16, 0, 1); // show name
 		//OLED_ShowCN(32, 0, 2); // show name
 		//OLED_ShowStr(0, 1,"not pressed yet",1);
-	  OLED_ShowStr(0,3,"20221689",2);  //"OLED"
-
+  if(Moter_direction == 0){
+    OLED_ShowStr(0, 0, "forward",2);
+  }else if(Moter_direction == 1){
+    OLED_ShowStr(0, 0, "backward",2);
+  }else{
+    OLED_ShowStr(0, 0, "stop",2);
+  }
+  snprintf(PWM_Ratio_char_oled, sizeof(PWM_Ratio_char_oled), "%.1f", (float)PWM_pulse / 1000.0);
+  OLED_ShowStr(0, 3, PWM_Ratio_char_oled,2); //打印PWM占空比
+  snprintf(RPM_char_oled, sizeof(RPM_char_oled), "%.1f", RPM);
+	if(Moter_direction == 2){
+	  OLED_ShowStr(2, 5, "Motor has stopped",2); //打印电机转速
+}
+		else{
+  OLED_ShowStr(2, 5, RPM_char_oled,2); //打印电机转速
+		}
 }
 void OLED_LAB_DISP(void){
 		//int a  = 1;
