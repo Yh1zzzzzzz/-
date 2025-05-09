@@ -100,6 +100,7 @@ float pid_previous_error = 0.0f;
 float pid_integral = 0.0f;
 float pid_derivative = 0.0f;
 float pid_output = 0.0f;
+float pid_prev_prev_error = 0.0f; // 上上次误差 e(k-2)  <--- 新增变量
 
 // PID 输出限制 (例如PWM占空比范围, 假设htim3的ARR为999，则最大值为999)
 // 您需要根据htim3的实际ARR值来设置PID_OUTPUT_MAX
@@ -125,40 +126,37 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 void Update_PID_Controller(void)
 {
-  // 1. 计算误差
+  // 1. 计算当前误差 e(k)
   // RPM 是由 HAL_TIM_IC_CaptureCallback 中断更新的当前电机转速
-  pid_error = (float)Set_RPM - RPM;
+  pid_error = (float)Set_RPM - RPM; // pid_error 充当 e(k)
 
-  // 2. 比例项
-  float P_out = Kp * pid_error;
+  // 2. 计算增量 delta_pid_output = Δu(k)
+  // Δu(k) = Kp * [e(k) - e(k-1)] + Ki * e(k) + Kd * [e(k) - 2*e(k-1) + e(k-2)]
+  float delta_pid_output = Kp * (pid_error - pid_previous_error) + \
+                           Ki * pid_error + \
+                           Kd * (pid_error - 2.0f * pid_previous_error + pid_prev_prev_error);
 
-  // 3. 积分项 (包含抗积分饱和)
-  pid_integral += pid_error;
-  if (pid_integral > INTEGRAL_MAX)
-    pid_integral = INTEGRAL_MAX;
-  else if (pid_integral < INTEGRAL_MIN)
-    pid_integral = INTEGRAL_MIN;
-  float I_out = Ki * pid_integral;
+  // 3. 更新总输出 U(k) = U(k-1) + Δu(k)
+  // pid_output 在这里代表 U(k-1)，然后更新为 U(k)
+  pid_output += delta_pid_output;
 
-  // 4. 微分项
-  pid_derivative = pid_error - pid_previous_error;
-  float D_out = Kd * pid_derivative;
-
-  // 5. 计算PID总输出
-  pid_output = P_out + I_out + D_out;
-
-  // 6. 限制PID输出在有效范围内 (例如PWM占空比)
+  // 4. 限制PID总输出在有效范围内
   if (pid_output > PID_OUTPUT_MAX)
+  {
     pid_output = PID_OUTPUT_MAX;
+  }
   else if (pid_output < PID_OUTPUT_MIN)
+  {
     pid_output = PID_OUTPUT_MIN;
+  }
 
-  // 7. 更新前一次误差
+  // 5. 更新历史误差，为下一次计算做准备
+  // e(k-2) = e(k-1)
+  pid_prev_prev_error = pid_previous_error;
+  // e(k-1) = e(k)
   pid_previous_error = pid_error;
 
-  // 8. 将PID输出应用到电机PWM控制
-  // 假设htim3, TIM_CHANNEL_1 用于电机PWM输出
-  // __HAL_TIM_SetCompare 需要一个整数值
+  // 6. 将PID输出应用到电机PWM控制
   if (Set_RPM > 0) // 只有在目标转速大于0时才更新PWM
   {
     __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, (uint16_t)pid_output);
@@ -166,8 +164,11 @@ void Update_PID_Controller(void)
   else // 如果目标转速为0，则停止电机 (PWM设为0)
   {
     __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 0);
-    pid_integral = 0;       // 重置积分项，避免下次启动时积分过大
-    pid_previous_error = 0; // 重置先前误差
+    pid_output = 0.0f; // 重置PID累积输出
+    // 重置历史误差，防止下次启动时因旧的误差值导致delta_pid_output过大
+    pid_previous_error = 0.0f;
+    pid_prev_prev_error = 0.0f;
+    // pid_error 此时也应接近0 (如果RPM也为0)
   }
 }
 /* USER CODE END 0 */
