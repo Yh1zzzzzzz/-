@@ -1,0 +1,121 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.26.2.0
+Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: w Microsoft, Microsoft, LIC=9WSKC-7KEGZ-UHA8H-W2L32-0SQ4V-UEY16
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
+Toolchain Path:  C:\Keil\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.10.1
+Assembler:       Armasm.exe V6.10.1
+Linker/Locator:  ArmLink.exe V6.10.1
+Library Manager: ArmAr.exe V6.10.1
+Hex Converter:   FromElf.exe V6.10.1
+CPU DLL:         SARMCM3.DLL V5.26.2.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
+Dialog DLL:      TCM.DLL V1.36.1.0
+ 
+<h2>Project:</h2>
+F:\Computer_Control\lab7\MDK-ARM\lab1.uvprojx
+Project File Date:  04/26/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.10.1', folder: 'C:\Keil\ARM\ARMCLANG\Bin'
+Build target 'lab1'
+../Core/Src/I2C_OLED.c(373): warning: passing 'char [5]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      OLED_ShowStr(0,0,"OLED",2);  //"OLED"
+                       ^~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(432): warning: passing 'char [8]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    OLED_ShowStr(0, 0, "forward",2);
+                       ^~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(434): warning: passing 'char [9]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    OLED_ShowStr(0, 0, "backward",2);
+                       ^~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(436): warning: passing 'char [5]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    OLED_ShowStr(0, 0, "stop",2);
+                       ^~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(439): warning: passing 'char [8]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  OLED_ShowStr(0, 3, PWM_Ratio_char_oled,2); //<U+6253><U+5370>PWM<U+5360><U+7A7A><U+6BD4>
+                     ^~~~~~~~~~~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(442): warning: passing 'char [18]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+          OLED_ShowStr(2, 5, "Motor has stopped",2); //<U+6253><U+5370><U+7535><U+673A><U+8F6C><U+901F>
+                             ^~~~~~~~~~~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(445): warning: passing 'char [8]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  OLED_ShowStr(2, 5, RPM_char_oled,2); //<U+6253><U+5370><U+7535><U+673A><U+8F6C><U+901F>
+                     ^~~~~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(457): warning: passing 'char [11]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+        OLED_ShowStr(0,0,"S2 pressed",2);  //"OLED"
+                         ^~~~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(463): warning: passing 'char [11]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+        OLED_ShowStr(0,0,"S3 pressed",2);  //"OLED"
+                         ^~~~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+../Core/Src/I2C_OLED.c(464): warning: passing 'char [9]' to parameter of type 'unsigned char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+        OLED_ShowStr(0,3,"20221689",2);
+                         ^~~~~~~~~~
+../Core/Src/I2C_OLED.c(270): note: passing argument to parameter 'ch' here
+void OLED_ShowStr(unsigned char x, unsigned char y, unsigned char ch[], unsigned char TextSize)
+                                                                  ^
+10 warnings generated.
+compiling I2C_OLED.c...
+linking...
+Program Size: Code=19190 RO-data=2694 RW-data=92 ZI-data=1692  
+FromELF: creating hex file...
+"lab1\lab1.axf" - 0 Error(s), 10 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
+                ARM.CMSIS.5.4.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.1.2
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.0.0.pack
+                Keil.STM32F1xx_DFP.2.0.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_lab1
+  C:\Keil\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+  C:\Keil\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.1.2
+Build Time Elapsed:  00:00:13
+</pre>
+</body>
+</html>
